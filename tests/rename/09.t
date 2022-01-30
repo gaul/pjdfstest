@@ -32,8 +32,8 @@ for type in regular fifo block char socket symlink; do
 	create_file ${type} ${n0}/${n2} 65534 65534
 	inode=`${fstest} lstat ${n0}/${n2} inode`
 
-	for type in none regular fifo block char socket symlink; do
-		create_file ${type} ${n1}/${n3} 65534 65534
+	for type2 in none regular fifo block char socket symlink; do
+		create_file ${type2} ${n1}/${n3} 65534 65534
 		expect 0 -u 65534 -g 65534 rename ${n0}/${n2} ${n1}/${n3}
 		expect ENOENT lstat ${n0}/${n2} inode
 		expect ${inode},65534,65534 lstat ${n1}/${n3} inode,uid,gid
@@ -50,8 +50,8 @@ for type in regular fifo block char socket symlink; do
 		create_file ${type} ${n0}/${n2} ${id} ${id}
 		inode=`${fstest} lstat ${n0}/${n2} inode`
 
-		for type in none regular fifo block char socket symlink; do
-			create_file ${type} ${n1}/${n3} 65534 65534
+		for type2 in none regular fifo block char socket symlink; do
+			create_file ${type2} ${n1}/${n3} 65534 65534
 			expect 0 -u 65534 -g 65534 rename ${n0}/${n2} ${n1}/${n3}
 			expect ENOENT lstat ${n0}/${n2} inode
 			expect ${inode},${id},${id} lstat ${n1}/${n3} inode,uid,gid
@@ -69,8 +69,8 @@ for type in regular fifo block char socket symlink; do
 		create_file ${type} ${n0}/${n2} 65534 65534
 		inode=`${fstest} lstat ${n0}/${n2} inode`
 
-		for type in none regular fifo block char socket symlink; do
-			create_file ${type} ${n1}/${n3} 65534 65534
+		for type2 in none regular fifo block char socket symlink; do
+			create_file ${type2} ${n1}/${n3} 65534 65534
 			expect 0 -u 65534 -g 65534 rename ${n0}/${n2} ${n1}/${n3}
 			expect ENOENT lstat ${n0}/${n2} inode
 			expect ${inode},65534,65534 lstat ${n1}/${n3} inode,uid,gid
@@ -88,11 +88,11 @@ for type in regular fifo block char socket symlink; do
 		create_file ${type} ${n0}/${n2} ${id} ${id}
 		inode=`${fstest} lstat ${n0}/${n2} inode`
 
-		for type in none regular fifo block char socket symlink; do
-			create_file ${type} ${n1}/${n3} 65534 65534
+		for type2 in none regular fifo block char socket symlink; do
+			create_file ${type2} ${n1}/${n3} 65534 65534
 			expect "EACCES|EPERM" -u 65534 -g 65534 rename ${n0}/${n2} ${n1}/${n3}
 			expect ${inode},${id},${id} lstat ${n0}/${n2} inode,uid,gid
-			if [ "${type}" != "none" ]; then
+			if [ "${type2}" != "none" ]; then
 				expect 65534,65534 lstat ${n1}/${n3} uid,gid
 				expect 0 unlink ${n1}/${n3}
 			fi
