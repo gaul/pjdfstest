@@ -279,17 +279,23 @@ supported()
 	ftype_dir)
 		;;
 	ftype_fifo)
+		if [ "${fs}" = "FUSE.GCSFUSE" ]; then
+			return 1
+		fi
 		;;
 	ftype_none)
 		;;
 	ftype_regular)
 		;;
 	ftype_socket)
+		if [ "${fs}" = "FUSE.GCSFUSE" ]; then
+			return 1
+		fi
 		;;
 	ftype_symlink)
 		;;
 	link)
-		if [ "${fs}" = "FUSE.S3FS" ]; then
+		if [ "${fs}" = "FUSE.GCSFUSE" -o "${fs}" = "FUSE.S3FS" ]; then
 			return 1
 		fi
 		;;
